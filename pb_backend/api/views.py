@@ -3,16 +3,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from projects.serializers import ProjectSerializer
-from about_me.serializers import ParagraphSerializer, StackSerializer
+from about_me.serializers import StackSerializer
 
 from users.models import Profile
 from django.contrib.auth.models import User
 from users.serializers import ProfileSerializer
 
 from projects.models import Project
-from about_me.models import Paragraph, Stack
+from about_me.models import Stack
 
-from pprint import pprint
 
 # Create your views here.
 @api_view(['GET'])
@@ -52,10 +51,12 @@ def projects(request):
 def about(request):
   stacks = Stack.objects.all()
   stack_serializer = StackSerializer(stacks, many=True)
-  paragraphs = Paragraph.objects.all().order_by('order')
-  paragrph_serializer = ParagraphSerializer(paragraphs, many=True)
+  profile = Profile.objects.get(id=1)
+  profile_serializer = ProfileSerializer(profile, many=False)
+  # paragraphs = Paragraph.objects.all().order_by('order')
+  # paragrph_serializer = ParagraphSerializer(paragraphs, many=True)
 
-  return Response({'stacks': stack_serializer.data, 'paragraphs': paragrph_serializer.data})
+  return Response({'stacks': stack_serializer.data, 'profile': profile_serializer.data})
 
 @api_view(['GET'])
 def profile(request):

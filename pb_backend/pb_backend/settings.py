@@ -30,7 +30,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'pb-v4-backend-a86d54467a96.herokuapp.com']
+ALLOWED_HOSTS = [env('DEV_HOST'), env('HOST'), 'localhost']
 
 
 # Application definition
@@ -157,7 +157,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # CORS Configuration
-CORS_ALLOWED_ORIGINS = [env('HOST'), env('FRONT_END')]
+CORS_ALLOWED_ORIGINS = [env('FRONT_END'), env('DEV_HOST')]
 
 # EMAIL Configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
